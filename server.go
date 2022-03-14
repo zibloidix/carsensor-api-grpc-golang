@@ -25,15 +25,14 @@ func (*server) SendPoint(stream carsensorpb.CarSensorService_SendPointServer) er
 
 	for {
 		req, err := stream.Recv()
-		if err != nil {
-			log.Fatalf("Error: %v", err)
-		}
-
 		if err == io.EOF {
 			return stream.SendAndClose(&carsensorpb.SendPointResponse{
 				Route:  route,
 				Status: 200,
 			})
+		}
+		if err != nil {
+			log.Fatalf("Error: %v", err)
 		}
 
 		car = req.GetCar()
