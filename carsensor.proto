@@ -1,0 +1,18 @@
+syntax = "proto3";
+option go_package="./carsensorpb";
+
+message SendPointRequest {
+    int32 car = 1;
+    int32 route = 2;
+    float latitude = 3;
+    float longitude = 4;
+}
+
+message SendPointResponse {
+    int32 route = 1;
+    int32 status = 2;
+}
+
+service CarSensorService {
+    rpc SendPoint(stream SendPointRequest) returns (SendPointResponse) {};
+}
